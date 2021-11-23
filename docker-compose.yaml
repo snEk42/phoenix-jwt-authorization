@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  database:
+    container_name: addressbook_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: addressbook_dev
+    volumes:
+      - ./.db/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: pg_isready -U postgres -D addressbook_dev -h 127.0.0.1
+      interval: 5s
+    image: postgres:11.4-alpine
+    ports:
+      - 5432:5432
+    logging:
+      driver: none
