@@ -14,7 +14,7 @@ defmodule AddressbookWeb.UserController do
 
   def sign_up(conn, %{"user" => user_params}) do
     with {:ok, %User{} = user} <- Accounts.create_user(user_params),
-    {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
+         {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
       conn
       |> put_status(:created)
       |> render("jwt.json", jwt: token)
@@ -25,6 +25,7 @@ defmodule AddressbookWeb.UserController do
     case Accounts.token_sign_in(email, password) do
       {:ok, token, _claims} ->
         conn |> render("jwt.json", jwt: token)
+
       _ ->
         {:error, :unauthorized}
     end

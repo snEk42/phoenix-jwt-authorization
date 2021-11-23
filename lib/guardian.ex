@@ -13,7 +13,7 @@ defmodule Addressbook.Guardian do
   def resource_from_claims(claims) do
     id = claims["sub"]
     resource = Addressbook.Accounts.get_user!(id)
-    {:ok,  resource}
+    {:ok, resource}
   end
 
   def resource_from_claims(_claims) do

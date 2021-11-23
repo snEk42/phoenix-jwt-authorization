@@ -107,6 +107,7 @@ defmodule Addressbook.Accounts do
     case email_password_auth(email, password) do
       {:ok, user} ->
         Guardian.encode_and_sign(user)
+
       _ ->
         {:error, :unauthorized}
     end
@@ -114,7 +115,7 @@ defmodule Addressbook.Accounts do
 
   defp email_password_auth(email, password) when is_binary(email) and is_binary(password) do
     with {:ok, user} <- get_by_email(email),
-    do: verify_password(user, password)
+         do: verify_password(user, password)
   end
 
   defp get_by_email(email) when is_binary(email) do
@@ -122,6 +123,7 @@ defmodule Addressbook.Accounts do
       nil ->
         no_user_verify()
         {:error, "Login failed."}
+
       user ->
         {:ok, user}
     end
