@@ -5,8 +5,10 @@ defmodule AddressbookWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", AddressbookWeb do
+  scope "/api/v1", AddressbookWeb do
     pipe_through :api
+
+    resources "/users", UserController, only: [:create, :index]
   end
 
   # Enables LiveDashboard only for development
