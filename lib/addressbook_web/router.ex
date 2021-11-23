@@ -1,8 +1,14 @@
 defmodule AddressbookWeb.Router do
   use AddressbookWeb, :router
 
+  alias Addressbook.Guardian
+
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  pipeline :jwt_authenticated do
+    plug Guardian.AuthPipeline
   end
 
   scope "/api/v1", AddressbookWeb do
@@ -10,8 +16,12 @@ defmodule AddressbookWeb.Router do
 
     post "/sign-up", UserController, :sign_up
     post "/sign-in", UserController, :sign_in
+  end
 
-    resources "/users", UserController, only: [:index]
+  scope "/api/v1", AddressbookWeb do
+    pipe_through [:api, :jwt_authenticated]
+
+    get "/users/me", UserController, :show
   end
 
   # Enables LiveDashboard only for development
