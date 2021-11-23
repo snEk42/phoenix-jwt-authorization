@@ -8,7 +8,8 @@ defmodule AddressbookWeb.Router do
   scope "/api/v1", AddressbookWeb do
     pipe_through :api
 
-    post "/sign-up", UserController, :create
+    post "/sign-up", UserController, :sign_up
+    post "/sign-in", UserController, :sign_in
 
     resources "/users", UserController, only: [:index]
   end
