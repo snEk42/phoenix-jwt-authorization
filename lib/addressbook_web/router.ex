@@ -8,7 +8,9 @@ defmodule AddressbookWeb.Router do
   scope "/api/v1", AddressbookWeb do
     pipe_through :api
 
-    resources "/users", UserController, only: [:create, :index]
+    post "/sign-up", UserController, :create
+
+    resources "/users", UserController, only: [:index]
   end
 
   # Enables LiveDashboard only for development

@@ -17,6 +17,10 @@ config :addressbook, AddressbookWeb.Endpoint,
   pubsub_server: Addressbook.PubSub,
   live_view: [signing_salt: "fLnLwzwj"]
 
+config :addressbook, Addressbook.Guardian,
+  issuer: "Addressbook API",
+  secret_key: "Zr85xpKqVn3kg1+sDo8wAKt19bg9+yQ6/+iHhLYSgrqUpbnBPPkT3krcXJNgEfcH"
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
